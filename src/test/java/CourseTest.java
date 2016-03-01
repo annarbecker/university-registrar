@@ -54,12 +54,15 @@ public class CourseTest {
     Course myCourse = new Course("Sociology of Food", "SOCY210");
     myCourse.save();
 
-    Student myStudent = new Student("Anna", "01/01/2017");
-    myStudent.save();
+    Student firstStudent = new Student("Anna", "01/01/2017");
+    firstStudent.save();
+    Student secondStudent = new Student("John", "01/01/2017");
+    secondStudent.save();
 
-    myCourse.addStudent(myStudent);
+    myCourse.addStudent(firstStudent);
+    myCourse.addStudent(secondStudent);
     List savedStudents = myCourse.getStudents();
-    assertEquals(savedStudents.size(), 1);
+    assertEquals(savedStudents.size(), 2);
   }
 
   @Test

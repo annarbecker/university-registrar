@@ -11,20 +11,23 @@ public class App {
     staticFileLocation("/public/");
     String layout = "templates/layout.vtl";
 
-    // get("/", (request, response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   model.put("template", "templates/index.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
-    // get("/tasks", (request,response) -> {
-    //   HashMap<String, Object> model = new HashMap<String, Object>();
-    //   List<Task> tasks = Task.all();
-    //   model.put("tasks", tasks);
-    //   model.put("template", "templates/tasks.vtl");
-    //   return new ModelAndView(model, layout);
-    // }, new VelocityTemplateEngine());
-    //
+    get("/", (request, response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      model.put("template", "templates/index.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
+    get("/students", (request,response) -> {
+      HashMap<String, Object> model = new HashMap<String, Object>();
+      String name = request.queryParams("name");
+      String enrollment = request.queryParams("enrollment");
+      Student newStudent = new Student(name, enrollment);
+      newStudent.save();
+      model.put("students", Student.all());
+      model.put("template", "templates/students.vtl");
+      return new ModelAndView(model, layout);
+    }, new VelocityTemplateEngine());
+
     // get("/categories", (request, response) -> {
     //   HashMap<String, Object> model = new HashMap<String, Object>();
     //   List<Category> categories = Category.all();
@@ -36,7 +39,7 @@ public class App {
     // get("/tasks/:id", (request,response) -> {
     //   HashMap<String, Object> model = new HashMap<String, Object>();
     //   int id = Integer.parseInt(request.params("id"));
-    //   Task task = Task.find(id);
+    //   Student task = Task.find(id);
     //   model.put("task", task);
     //   model.put("allCategories", Category.all());
     //   model.put("template", "templates/task.vtl");
