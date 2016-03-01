@@ -9,7 +9,7 @@ public class StudentTest {
 
   @Test
   public void all_emptyAtFirst() {
-    assertEquals(Student.all().size(), 0);
+    assertEquals(0, Student.all().size());
   }
 
   @Test
@@ -97,5 +97,12 @@ public class StudentTest {
     Student myStudent = new Student("Jane","12/12/16");
     myStudent.save();
     assertTrue(Student.all().get(0).getName().equals("Jane"));
+  }
+
+  @Test
+  public void getId_returnsStudentId() {
+    Student myStudent = new Student("Jane","12/12/16");
+    myStudent.save();
+    assertEquals(Student.all().get(0).getId(), myStudent.getId());
   }
 }

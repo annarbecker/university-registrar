@@ -105,4 +105,12 @@ public class Course {
       .executeUpdate();
     }
   }
+
+  public static void clear(){
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "DELETE FROM courses";
+      con.createQuery(sql)
+      .executeUpdate();
+    }
+  }
 }
