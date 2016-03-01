@@ -1,32 +1,29 @@
+<h1>$course.getName()</h1>
+<h3>Course Number: $course.getNumber()</h3>
 
-<h1>$category.getName()</h1>
-
-#if($category.getTasks())
-  <p>Here are the tasks for this category:</p>
+#if($course.getStudents())
+  <p>Here are the students in this course:</p>
   <ul>
-    #foreach($task in $category.getTasks())
-      #if($task.isCompleted())
-        <li class="completed">$task.getDescription()</li>
-      #else
-        <li>$task.getDescription()</li>
-      #end
+    #foreach($student in $course.getStudents())
+        <li>$student.getName()</li>
     #end
   </ul>
 #end
 
-<h4>Add a task to this category:</h4>
+<h4>Add a student to this course:</h4>
 
-<form action='/add_tasks' method='post'>
-    <input id="category_id" name="category_id" type="hidden" value="$category.getId()">
-    <label for="task_id">Select a task</label>
-    <select id='task_id' name='task_id' type='text'>
-      #foreach($task in $allTasks)
-        <option value="$task.getId()"> $task.getDescription() </option>
+<form action='/add_students' method='post'>
+  <input id="course_id" name="course_id" type="hidden" value="$course.getId()">
+    <label for="student_id">Select a student</label>
+    <select id='student_id' name='student_id' type='text'>
+      #foreach($student in $allStudents)
+        <option value="$student.getId()"> $student.getName() </option>
       #end
     </select>
-    <button type='submit'>Add task</button>
+    <button type='submit'>Add student</button>
 </form>
 
-<p><a href="/categories/$category.getId()/edit">Edit this category</a></p>
+<p><a href="/courses/$course.getId()/edit">Edit this course</a></p>
+<p><a href="/courses/$course.getId()/delete">Delete this course</a></p>
 
 <p><a href='/'>Home</a></p>

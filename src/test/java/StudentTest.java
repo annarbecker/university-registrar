@@ -91,4 +91,11 @@ public class StudentTest {
     myStudent.update(newName, newDateOfEnrollment);
     assertTrue(Student.all().get(0).getName().equals(newName) && (Student.all().get(0).getDateOfEnrollment().equals(newDateOfEnrollment)));
   }
+
+  @Test
+  public void getName_returnsStudentName() {
+    Student myStudent = new Student("Jane","12/12/16");
+    myStudent.save();
+    assertTrue(Student.all().get(0).getName().equals("Jane"));
+  }
 }
