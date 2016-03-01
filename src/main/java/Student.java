@@ -105,4 +105,16 @@ public class Student {
           .executeUpdate();
     }
   }
+
+  public void update(String newName, String newDateOfEnrollment) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE students SET name = :newName, dateOfEnrollment = :newDateOfEnrollment WHERE id = :id";
+      this.name = newName;
+      con.createQuery(sql)
+      .addParameter("newName", newName)
+      .addParameter("newDateOfEnrollment", newDateOfEnrollment)
+      .addParameter("id", id)
+      .executeUpdate();
+    }
+  }
 }

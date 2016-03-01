@@ -36,42 +36,59 @@ public class CourseTest {
     assertTrue(myCourse.equals(savedCourse));
   }
 
-  // @Test
-  // public void addStudent_addsStudentToCourse() {
-  //   Course myCourse = new Course("Sociology of Food", "SOCY210");
-  //   myCourse.save();
-  //
-  //   Student myStudent = new Student("Jamie", "01/01/2017");
-  //   myStudent.save();
-  //
-  //   myCourse.addStudent(myStudent);
-  //   Student savedStudent = myCourse.getStudents().get(0);
-  //   assertTrue(myStudent.equals(savedStudent));
-  // }
+  @Test
+  public void addStudent_addsStudentToCourse() {
+    Course myCourse = new Course("Sociology of Food", "SOCY210");
+    myCourse.save();
 
-  // @Test
-  // public void getStudents_returnsAllStudents_List() {
-  //   Course myCourse = new Course("Sociology of Food", "SOCY210");
-  //   myCourse.save();
-  //
-  //   Student myStudent = new Student("Jamie", "01/01/2017");
-  //   myStudent.save();
-  //
-  //   myCourse.addStudent(myStudent);
-  //   List savedStudents = myCourse.getStudents();
-  //   assertEquals(savedStudents.size(), 1);
-  // }
+    Student myStudent = new Student("Jamie", "01/01/2017");
+    myStudent.save();
 
-  // @Test
-  // public void delete_deletesAllStudentsAndListsAssoicationes() {
-  //   Course myCourse = new Course("Sociology of Food", "SOCY210");
-  //   myCourse.save();
-  //
-  //   Student myStudent = new Student("Jamie", "01/01/2017");
-  //   myStudent.save();
-  //
-  //   myCourse.addStudent(myStudent);
-  //   myCourse.delete();
-  //   assertEquals(myStudent.getCourses().size(), 0);
-  // }
+    myCourse.addStudent(myStudent);
+    Student savedStudent = myCourse.getStudents().get(0);
+    assertTrue(myStudent.equals(savedStudent));
+  }
+
+  @Test
+  public void getStudents_returnsAllStudents_List() {
+    Course myCourse = new Course("Sociology of Food", "SOCY210");
+    myCourse.save();
+
+    Student myStudent = new Student("Anna", "01/01/2017");
+    myStudent.save();
+
+    myCourse.addStudent(myStudent);
+    List savedStudents = myCourse.getStudents();
+    assertEquals(savedStudents.size(), 1);
+  }
+
+  @Test
+  public void delete_deletesAllStudentsAndListsAssoicationes() {
+    Course myCourse = new Course("Sociology of Food", "SOCY210");
+    myCourse.save();
+
+    Student myStudent = new Student("Jamie", "01/01/2017");
+    myStudent.save();
+
+    myCourse.addStudent(myStudent);
+    myCourse.delete();
+    assertEquals(myStudent.getCourses().size(), 0);
+  }
+
+  @Test
+  public void update_updatesCourse() {
+    Course myCourse = new Course("Sociology of Food", "SOCY210");
+    myCourse.save();
+    String newName = "History of RecReRate";
+    String newNumber = "REC800";
+    myCourse.update(newName, newNumber);
+    assertTrue(Course.all().get(0).getName().equals(newName) && (Course.all().get(0).getNumber().equals(newNumber)));
+  }
+
+  @Test
+  public void getNumber_courseNumber(){
+    Course myCourse = new Course("Sociology of Food", "SOCY210");
+    myCourse.save();
+    assertEquals(Course.all().get(0).getNumber(), "SOCY210");
+  }
 }

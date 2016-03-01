@@ -26,7 +26,7 @@ public class Course {
 
 
   public static List<Course> all() {
-    String sql = "SELECT id, name FROM courses";
+    String sql = "SELECT id, name, number FROM courses";
     try(Connection con = DB.sql2o.open()) {
       return con.createQuery(sql).executeAndFetch(Course.class);
     }
@@ -44,9 +44,10 @@ public class Course {
 
   public void save() {
     try(Connection con = DB.sql2o.open()) {
-      String sql = "INSERT INTO courses(name) VALUES (:name)";
+      String sql = "INSERT INTO courses(name, number) VALUES (:name, :number)";
       this.id = (int) con.createQuery(sql, true)
-        .addParameter("name", this.name)
+        .addParameter("name", name)
+        .addParameter("number", number)
         .executeUpdate()
         .getKey();
     }
@@ -90,6 +91,18 @@ public class Course {
         con.createQuery(joinDeleteQuery)
           .addParameter("course_id", this.getId())
           .executeUpdate();
+    }
+  }
+
+  public void update(String newName, String newNumber) {
+    try(Connection con = DB.sql2o.open()) {
+      String sql = "UPDATE courses SET name = :newName, number = :newNumber WHERE id = :id";
+      this.name = newName;
+      con.createQuery(sql)
+      .addParameter("newName", newName)
+      .addParameter("newNumber", newNumber)
+      .addParameter("id", id)
+      .executeUpdate();
     }
   }
 }

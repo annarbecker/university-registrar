@@ -81,4 +81,14 @@ public class StudentTest {
     myStudent.delete();
     assertEquals(myCourse.getStudents().size(), 0);
   }
+
+  @Test
+  public void update_updatesStudent() {
+    Student myStudent = new Student("Jane","12/12/16");
+    myStudent.save();
+    String newName = "Sue";
+    String newDateOfEnrollment = "10/10/2016";
+    myStudent.update(newName, newDateOfEnrollment);
+    assertTrue(Student.all().get(0).getName().equals(newName) && (Student.all().get(0).getDateOfEnrollment().equals(newDateOfEnrollment)));
+  }
 }
